@@ -271,7 +271,7 @@ public class Settings extends JFrame {
 		categories.add("KRILCA");
 		categories.add("QUESADILLA");
 		categories.add("WEDGES");
-		categories.add("DORU»AK");
+		categories.add("DORUƒåAK");
 		categories.add("DESERT");
 		categories.add("PIVO");
 		categories.add("SOSEVI");
@@ -298,16 +298,16 @@ public class Settings extends JFrame {
 		products.add(new Product("WEDGES", "Garlic Wedges", 170.0, 50.0));
 		products.add(new Product("WEDGES", "BBQ Wedges", 180.0, 50.0));
 		products.add(new Product("WEDGES", "Amigos Wedges", 190.0, 50.0));
-		products.add(new Product("DORU»AK", "Monte Cristo ≈†unka", 220.0, 100.0));
-		products.add(new Product("DORU»AK", "Monte Cristo Slanina", 260.0, 100.0));
-		products.add(new Product("DORU»AK", "Monte Cristo Kulen", 230.0, 100.0));
-		products.add(new Product("DORU»AK", "Monte Cristo Suvi Vrat", 250.0, 120.0));
-		products.add(new Product("DORU»AK", "Burrito doruËak ", 220.0, 100.0));
-		products.add(new Product("DORU»AK", "SendviË suvi vrat", 150.0, 100.0));
+		products.add(new Product("DORU≈°AK", "Monte Cristo ≈†unka", 220.0, 100.0));
+		products.add(new Product("DORU≈°AK", "Monte Cristo Slanina", 260.0, 100.0));
+		products.add(new Product("DORU≈°AK", "Monte Cristo Kulen", 230.0, 100.0));
+		products.add(new Product("DORU≈°AK", "Monte Cristo Suvi Vrat", 250.0, 120.0));
+		products.add(new Product("DORU≈°AK", "Burrito doruƒçak ", 220.0, 100.0));
+		products.add(new Product("DORU≈°AK", "Sendviƒç suvi vrat", 150.0, 100.0));
 		products.add(new Product("DESERT", "Fried Oreos", 220.0, 130.0));
-		products.add(new Product("PIVO", "Svetionik 0,33l flaöa ", 220.0, 120.0));
+		products.add(new Product("PIVO", "Svetionik 0,33l fla≈°a ", 220.0, 120.0));
 		products.add(new Product("PIVO", "Svetionik 0,33l limenka ", 190.0, 100.0));
-		products.add(new Product("PIVO", "Hoptopod 0,33l flaöa ", 220.0, 120.0));
+		products.add(new Product("PIVO", "Hoptopod 0,33l fla≈°a ", 220.0, 120.0));
 		products.add(new Product("PIVO", "Hoptopod 0,33l limenka ", 190.0, 100.0));
 		products.add(new Product("SOSEVI", "Gvakamola sos", 70.0, 30.0));
 		products.add(new Product("SOSEVI", "BBQ sos", 50.0, 10.0));
@@ -316,7 +316,7 @@ public class Settings extends JFrame {
 		products.add(new Product("SOSEVI", "Fresh sos", 0.0, 10.0));
 		products.add(new Product("SOSEVI", "Slaninica sos", 0.0, 10.0));
 		products.add(new Product("SOSEVI", "Burger sos", 0.0, 10.0));
-		products.add(new Product("SOSEVI", "KeËap i majonez", 0.0, 10.0));
+		products.add(new Product("SOSEVI", "Keƒçap i majonez", 0.0, 10.0));
 		Libary.insertAllProducts(products);
 	}
 	private void updateSettingsMenu() {
@@ -380,7 +380,7 @@ public class Settings extends JFrame {
 			expenses = 0.0;	
 			System.out.println("uspelo");
 		} else {
-			setUpLabelError("Uneti troökovi proizvoda nisu validni.");
+			setUpLabelError("Uneti tro≈°kovi proizvoda nisu validni.");
 			return false;
 		}
 		
@@ -391,10 +391,10 @@ public class Settings extends JFrame {
 			setUpLabelError("Uneto ime proizvoda ne sme imati manje od 2 karaktera.");
 			return false;
 		} else if(name.contains("-")) {
-			setUpLabelError("Uneto ime proizvoda ne sme sadrûati karakter \"-\"");
+			setUpLabelError("Uneto ime proizvoda ne sme sadr≈æati karakter \"-\"");
 			return false;
 		} else if(name.length() > 20) {
-			setUpLabelError("Uneto ime proizvoda ne sme imati viöe od 20 karaktera.");
+			setUpLabelError("Uneto ime proizvoda ne sme imati vi≈°e od 20 karaktera.");
 			return false;
 		} else if(price == null) {
 			setUpLabelError("Molimo da unesete cenu proizvoda.");
@@ -403,19 +403,19 @@ public class Settings extends JFrame {
 			setUpLabelError("Uneta cena proizvoda ne sme biti negativna.");
 			return false;
 		} else if(price > 999999) {
-			setUpLabelError("Uneta cena proizvoda prekoraËuje gornju granicu. (0-999999)");
+			setUpLabelError("Uneta cena proizvoda prekoraƒçuje gornju granicu. (0-999999)");
 			return false;
 		} else if (expenses < 0) {
-			setUpLabelError("Uneti troökovi proizvodnje proizvoda ne smeju biti negativni.");
+			setUpLabelError("Uneti tro≈°kovi proizvodnje proizvoda ne smeju biti negativni.");
 			return false;
 		} else if(expenses > 999999) {
-			setUpLabelError("Uneti  troökovi proizvodnje proizvoda prekoraËuju gornju granicu. (0-999999)");
+			setUpLabelError("Uneti  tro≈°kovi proizvodnje proizvoda prekora≈°uju gornju granicu. (0-999999)");
 			return false;
 		}
 		
 		Product newProduct = new Product(category, name, price, expenses);
 		if(Libary.checkForProductDuplicates(newProduct)) {
-			setUpLabelError("Proizvod veÊ postoji.");
+			setUpLabelError("Proizvod ve≈° postoji.");
 			return false;
 		}
 		
@@ -428,15 +428,15 @@ public class Settings extends JFrame {
 			setUpLabelError("Unesite validan naziv kategorije.");
 			return false;
 		} else if(categoryName.contains("-")){
-			setUpLabelError("Naziv kategorije ne sme sadrûati karakter \"-\"");
+			setUpLabelError("Naziv kategorije ne sme sadr≈æati karakter \"-\"");
 			return false;
 		} else if(categoryName.length() > 15) {
-			setUpLabelError("Naziv kategorije ne sme sadrûati viöe od 15 karaktera.");
+			setUpLabelError("Naziv kategorije ne sme sadr≈æati vi≈°e od 15 karaktera.");
 			return false;
 		}
 		
 		if(Libary.checkForCategoryDuplicates(categoryName.toUpperCase())) {
-			setUpLabelError("Naziv kategorije veÊ postoji.");
+			setUpLabelError("Naziv kategorije veƒá postoji.");
 			return false;
 		}
 		
@@ -471,7 +471,7 @@ public class Settings extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				if(activeUser.isAdmin() == false) {
-					JOptionPane.showMessageDialog(contentPane, "User koji nema administratorske privilegije nije u moguÊnosti da pristupi podeöavanjima.", "Nedovoljne privilegije", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "User koji nema administratorske privilegije nije u mogu≈°nosti da pristupi pode≈°avanjima.", "Nedovoljne privilegije", JOptionPane.WARNING_MESSAGE);
 				} else {
 					try {
 						dispose();
@@ -493,7 +493,7 @@ public class Settings extends JFrame {
 		this.theme = theme;
 		
 		setResizable(false);
-		setTitle("CafeMaster - Podeöavanja");
+		setTitle("CafeMaster - Pode≈°avanja");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1000, 720);
 		contentPane = new JPanel();
@@ -547,7 +547,7 @@ public class Settings extends JFrame {
 			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	
 			list.setModel(new AbstractListModel() {
-				String[] values = new String[] {"OPäTA PODEäAVANJA" ,"PODEäAVANJA PROIZVODA", "PODEäAVANJA KORISNI»KIH PROFILA"};
+				String[] values = new String[] {"OP≈†TA PODE≈°AVANJA" ,"PODE≈†AVANJA PROIZVODA", "PODE≈°AVANJA KORISNIƒåKIH PROFILA"};
 				public int getSize() {
 					return values.length;
 				}
@@ -706,8 +706,8 @@ public class Settings extends JFrame {
 			JButton btnDefault = new JButton("VRATI NA PODRAZUMEVANO", iconDefault);
 			btnDefault.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da restartujete podeöavanja na podrazumevana?\n"
-							+ "Ovo Êe rezultovati brisanju svih podeöavanja i povratku na poËetnu öemu.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ≈æelite da restartujete pode≈°avanja na podrazumevana?\n"
+							+ "Ovo ƒáe rezultovati brisanju svih pode≈°avanja i povratku na poƒçetnu ≈°emu.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					
 					if(response == JOptionPane.YES_OPTION) {
 						trialSettings();
@@ -831,7 +831,7 @@ public class Settings extends JFrame {
 						productSelected = false;
 						selectedProduct = "";
 					} else {
-						JOptionPane.showMessageDialog(null, "Molimo Vas da izaberete proizvod za brisanje.", "Greöka!", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Molimo Vas da izaberete proizvod za brisanje.", "Gre≈°ka!", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			});
@@ -861,7 +861,7 @@ public class Settings extends JFrame {
 						productsOfCategory = Libary.loadAllProductsOfCategory(selectedCategory, categories, products);
 						
 						if(!productsOfCategory.isEmpty()) {
-							int option = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da ûelite da obriöete nepraznu kategoriju?\nOvim se briöu svi proizvodi unutar kategorije.", "Brisanje kategorije", JOptionPane.WARNING_MESSAGE);
+							int option = JOptionPane.showConfirmDialog(null, "Da li ste sigurni da ≈°elite da obri≈°ete nepraznu kategoriju?\nOvim se bri≈°u svi proizvodi unutar kategorije.", "Brisanje kategorije", JOptionPane.WARNING_MESSAGE);
 							if(option != JOptionPane.YES_OPTION) return;
 						}
 						
@@ -875,7 +875,7 @@ public class Settings extends JFrame {
 						productSelected = false;
 						
 					} else {
-						JOptionPane.showMessageDialog(null, "Molimo Vas da izaberete kategoriju za brisanje.", "Greöka!", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Molimo Vas da izaberete kategoriju za brisanje.", "Gre≈°ka!", JOptionPane.WARNING_MESSAGE);
 					}
 				}
 			});
@@ -930,9 +930,9 @@ public class Settings extends JFrame {
 			});
 			txtProductExpenses.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 			txtProductExpenses.setColumns(10);
-			txtProductExpenses.setPlaceholder("troökovi");
+			txtProductExpenses.setPlaceholder("tro≈°kovi");
 			
-			JButton btnSaveProduct = new JButton("SA»UVAJ PROIZVOD");
+			JButton btnSaveProduct = new JButton("SAƒåUVAJ PROIZVOD");
 			btnSaveProduct.setBounds(10, 81, 934, 48);
 			panelNewProduct.add(btnSaveProduct);
 			btnSaveProduct.addActionListener(new ActionListener() {
@@ -1007,7 +1007,7 @@ public class Settings extends JFrame {
 						txtNewCategory.setFont(new Font("Segoe UI", Font.PLAIN, 17));
 						txtNewCategory.setColumns(10);
 						txtNewCategory.setPlaceholder("naziv kategorije");
-						JButton btnSaveCategory = new JButton("SA»UVAJ");
+						JButton btnSaveCategory = new JButton("SAƒåUVAJ");
 						btnSaveCategory.setMinimumSize(new Dimension(69, 53));
 						btnSaveCategory.setPreferredSize(new Dimension(130, 50));
 						btnSaveCategory.setBounds(280, 41, 258, 37);

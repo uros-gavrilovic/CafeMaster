@@ -153,7 +153,7 @@ public class App extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				if(activeUser.isAdmin() == false) {
-					JOptionPane.showMessageDialog(contentPane, "User koji nema administratorske privilegije nije u moguƒánosti da pristupi pode≈°avanjima.", "Nedovoljne privilegije", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "User koji nema administratorske privilegije nije u moguÊnosti da pristupi podeöavanjima.", "Nedovoljne privilegije", JOptionPane.WARNING_MESSAGE);
 				} else {
 					try {
 						Settings frame = new Settings(activeUser, configuration, theme);
@@ -388,10 +388,10 @@ public class App extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
 				if(changesSaved == false) {
-					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ≈æelite da izaƒëete? Sve unete izmene neƒáe biti saƒçuvane u izve≈°taj.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saƒçuvane u izveötaj.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if(response == JOptionPane.YES_OPTION) System.exit(0);
 				} else if(reportCreated == false) {
-					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ≈æelite da izaƒëete? Sve unete izmene neƒáe biti saƒçuvane u izve≈°taj.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saƒçuvane u izveötaj.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if(response == JOptionPane.YES_OPTION) System.exit(0);
 				} else {
 					System.exit(0);
@@ -531,7 +531,7 @@ public class App extends JFrame {
 			btnPlus.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					if(selectedProduct == null) {
-						JOptionPane.showMessageDialog(contentPane, "Nije moguƒáe dodati proizvod.\nMolimo izaberite proizvod koji ≈æelite dodati.", "Dodavanje proizvoda", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Nije moguÊe dodati proizvod.\nMolimo izaberite proizvod koji ûelite dodati.", "Dodavanje proizvoda", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						
 					}
@@ -549,7 +549,7 @@ public class App extends JFrame {
 			btnMinus.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					if(selectedProduct == null) {
-						JOptionPane.showMessageDialog(contentPane, "Nije moguƒáe oduzeti proizvod.\nMolimo izaberite proizvod koji ≈æelite oduzeti.", "Oduzimanje proizvoda", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Nije moguÊe oduzeti proizvod.\nMolimo izaberite proizvod koji ûelite oduzeti.", "Oduzimanje proizvoda", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						Product toRemove = selectedProduct;
 						if(selectedTable.getOrders().remove(toRemove)) {
@@ -632,7 +632,7 @@ public class App extends JFrame {
 							Product selectedProduct = selectedButton.getLinkedProduct();
 		
 							if(selectedTable == null) {
-								JOptionPane.showMessageDialog(contentPane, "Molimo odaberite sto za koji ≈æelite da dodate proizvod!","Odabir stola", JOptionPane.INFORMATION_MESSAGE);
+								JOptionPane.showMessageDialog(contentPane, "Molimo odaberite sto za koji ûelite da dodate proizvod!","Odabir stola", JOptionPane.INFORMATION_MESSAGE);
 							} else {
 								changesSaved = false;
 								
@@ -712,14 +712,14 @@ public class App extends JFrame {
 			btnNaplatiSto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(selectedTable == null) {
-						JOptionPane.showMessageDialog(contentPane, "Molimo izaberite sto za koji ≈æelite da naplatite raƒçun", "Naplata raƒçuna", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Molimo izaberite sto za koji ûelite da naplatite raƒçun", "Naplata raƒçuna", JOptionPane.INFORMATION_MESSAGE);
 						return;
 					}
 					if(selectedTable.getTableBill() == 0.0) {
-						JOptionPane.showMessageDialog(contentPane, "Trenutni sto nema potra≈æivanja i nije moguƒáe naplatiti raƒçun.", "Naplata raƒçuna", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Trenutni sto nema potraûivanja i nije moguÊe naplatiti raƒçun.", "Naplata raƒçuna", JOptionPane.INFORMATION_MESSAGE);
 						return;
 					}
-					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ≈æelite da naplatite potra≈æivanja za dati sto?", "Naplata dugovanja stola", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da naplatite potraûivanja za dati sto?", "Naplata dugovanja stola", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(response == JOptionPane.YES_OPTION) {
 						activeUser.addTurnover(selectedTable);
 						lblPazarUsera.setText(Double.toString(activeUser.getTurnover()) + " RSD");
@@ -779,7 +779,7 @@ public class App extends JFrame {
 	}
 	private JMenu getMnItemReport() {
 		if (mnItemReport == null) {
-			mnItemReport = new JMenu("IZVE≈†TAJ");
+			mnItemReport = new JMenu("IZVEäTAJ");
 			mnItemReport.setBackground(Color.BLUE);
 			mnItemReport.setMaximumSize(new Dimension(80, 32767));
 			mnItemReport.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -792,15 +792,15 @@ public class App extends JFrame {
 	}
 	private JMenuItem getMnItemCreateReport() {
 		if (mnItemCreateReport == null) {
-			mnItemCreateReport = new JMenuItem("Kreiraj izve≈°taj");
-			mnItemCreateReport.setToolTipText("Kreira dnevni izve≈°taj koji prikazuje finansijsku analizu i koliƒçinu svakog proizvoda koji je naruƒçen.");
+			mnItemCreateReport = new JMenuItem("Kreiraj izveötaj");
+			mnItemCreateReport.setToolTipText("Kreira dnevni izveötaj koji prikazuje finansijsku analizu i koliƒçinu svakog proizvoda koji je naruƒçen.");
 			mnItemCreateReport.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					changesSaved = true;
 					reportCreated = true;
 					File izvestajFajl = new File (Libary.getReportsPath() + "\\" + Libary.createReportName());
 					if(izvestajFajl.exists() == true) {
-						int response = JOptionPane.showConfirmDialog(contentPane, "Izve≈°taj za dana≈°nji dan je veƒá kreiran. Da li ≈æelite da ga prepi≈°ete?","Kreiranje izve≈°taja", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int response = JOptionPane.showConfirmDialog(contentPane, "Izveötaj za danaönji dan je veÊ kreiran. Da li ûelite da ga prepiöete?","Kreiranje izveötaja", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(response == JOptionPane.NO_OPTION) {
 							return;
 						}
@@ -814,19 +814,19 @@ public class App extends JFrame {
 	}
 	private JMenuItem getMnItemChangesSaved() {
 		if (mnItemChangesSaved == null) {
-			mnItemChangesSaved = new JMenuItem("Proveri da li je izve≈°taj kreiran");
+			mnItemChangesSaved = new JMenuItem("Proveri da li je izveötaj kreiran");
 			mnItemChangesSaved.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					File report = new File(Libary.getReportsPath() + "\\" + Libary.createReportName());
 					
 					if(report.exists() == true) {
 						if(changesSaved == false) {
-							JOptionPane.showMessageDialog(contentPane, "Izve≈°taj je napravljen, ali nove promene nisu saƒçuvane.", "Uvid o postojanju izve≈°taja", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPane, "Izveötaj je napravljen, ali nove promene nisu saƒçuvane.", "Uvid o postojanju izveötaja", JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							JOptionPane.showMessageDialog(contentPane, "Izve≈°taj je napravljen i kompletno saƒçuvan.", "Uvid o postojanju izve≈°taja", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPane, "Izveötaj je napravljen i kompletno saƒçuvan.", "Uvid o postojanju izveötaja", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} else {
-						JOptionPane.showMessageDialog(contentPane, "Izve≈°taj nije kreiran.", "Uvid o postojanju izve≈°taja", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Izveötaj nije kreiran.", "Uvid o postojanju izveötaja", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			});
@@ -835,7 +835,7 @@ public class App extends JFrame {
 	}
 	private JMenuItem getMnItemOpenFolder() {
 		if (mnItemOpenFolder == null) {
-			mnItemOpenFolder = new JMenuItem("Otvori folder sa izve≈°tajima");
+			mnItemOpenFolder = new JMenuItem("Otvori folder sa izveötajima");
 			mnItemOpenFolder.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try {
@@ -850,12 +850,12 @@ public class App extends JFrame {
 	}
 	private JMenuItem getMnItemSettings() {
 		if (mnItemSettings == null) {
-			mnItemSettings = new JMenuItem("PODE≈†AVANJA");
+			mnItemSettings = new JMenuItem("PODEäAVANJA");
 			mnItemSettings.setForeground(UIManager.getColor("menuText"));
 			mnItemSettings.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {	
 					if(changesSaved == false) {
-						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ≈æelite da izaƒëete? Sve unete izmene neƒáe biti saƒçuvane u izve≈°taju.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saƒçuvane u izveötaju.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(response == JOptionPane.YES_OPTION) {
 							goToSettings();
 							if(activeUser.isAdmin()==true) dispose();
@@ -882,13 +882,13 @@ public class App extends JFrame {
 			mnItemBack.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {		
 					if(changesSaved == false) {
-						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ≈æelite da izaƒëete? Sve unete izmene neƒáe biti saƒçuvane.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saƒçuvane.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(response == JOptionPane.YES_OPTION) {
 							goToMainMenu();
 							dispose();
 						}
 					} else if(reportCreated == false) {
-						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ≈æelite da izaƒëete? Izve≈°taj nije napravljen.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Izveötaj nije napravljen.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(response == JOptionPane.YES_OPTION) {
 							goToMainMenu();
 							dispose();
@@ -912,7 +912,7 @@ public class App extends JFrame {
 					System.out.println("evidencija napravljena");
 				}
 			});
-			mnItemCreateLogs.setToolTipText("Kreira evidenciju koja pru≈æa uvid o naruƒçenim proizvodima kroz vreme.");
+			mnItemCreateLogs.setToolTipText("Kreira evidenciju koja pruûa uvid o naruƒçenim proizvodima kroz vreme.");
 		}
 		return mnItemCreateLogs;
 	}
@@ -982,7 +982,7 @@ public class App extends JFrame {
 			btnOdjava = new JButton("ODJAVI KORISNIKA");
 			btnOdjava.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ≈æelite da se odjavite?", "Potvrda o odjavi sa profila", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da se odjavite?", "Potvrda o odjavi sa profila", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(response == JOptionPane.YES_OPTION) {
 						goToLogin(); 	// NASTAVI, ZASTO NIJE MODALNO?
 						System.out.println("sad je ulogovan " + activeUser.getUsername());
