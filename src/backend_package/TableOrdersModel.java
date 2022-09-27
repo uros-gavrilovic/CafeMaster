@@ -12,17 +12,14 @@ import javax.swing.table.TableModel;
 public class TableOrdersModel extends AbstractTableModel{
 	String tableHeaders[] = {"KATEGORIJA", "NAZIV", "CENA", "KOLIÈINA"}; 
     private LinkedList<Product> products;
-    private DefaultTableModel tableModel;
 
     public TableOrdersModel(LinkedList<Product> products) {
-    	this.tableModel = new DefaultTableModel(0, tableHeaders.length);
-    	this.tableModel.setColumnIdentifiers(tableHeaders);
         this.products = products;
     }
 
     public void addRow(Product product) {
     	products.add(product);
-    	tableModel.addRow(new Object[]{product.getCategory(), product.getName(), product.getPrice(), product.getQuantity()});
+    	fireTableRowsInserted(getRowCount(), getColumnCount());
     }
     
     @Override 

@@ -261,6 +261,7 @@ public class App extends JFrame {
 	}
 
 	void displayOrdersForThisTable(Table selectedTable) {
+		
 		LinkedList<Product> products = selectedTable.getOrders();
 		Iterator<Product> it = products.iterator();
 
