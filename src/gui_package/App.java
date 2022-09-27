@@ -630,7 +630,6 @@ public class App extends JFrame {
 								displayOrdersForThisTable(selectedTable);
 								showTableBill(selectedTable);
 								
-								list.setSelectedIndex(-1);
 								selectedProduct = null;
 							}
 						}
