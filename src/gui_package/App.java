@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -25,8 +26,14 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
 
 import backend_package.Report;
 import backend_package.User;
@@ -74,6 +81,7 @@ import javax.swing.JMenuItem;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.UIManager;
+import javax.swing.JTable;
 
 public class App extends JFrame {
 
@@ -131,10 +139,9 @@ public class App extends JFrame {
 
 	private LinkedList<Product> productInventory = Libary.loadAllProducts();
 	private LinkedList<Product> listOfOrderedProducts = new LinkedList<>();
+	private JTable table;
 	
-	
-
-	// ---------- CUSTOM METODE ---------------------------------------------
+	// ---------- CUSTOM METHODS ---------------------------------------------
 	
 	void goToMainMenu() {
 		EventQueue.invokeLater(new Runnable() {
@@ -250,40 +257,32 @@ public class App extends JFrame {
 	void showTableBill(Table table) {
 		getTextField().setText(Double.toString(table.getTableBill()));
 	}
-	void showTableOrders(int tableNum) {
-		LinkedList<Product> orders = tables[tableNum].getOrders();
-		Iterator<Product> it = orders.iterator();
-		DefaultListModel<Product> dlm = new DefaultListModel<>();
-		while(it.hasNext()) {
-			Product productIterator = it.next();
-			dlm.addElement(productIterator);
-		}
-		getList().setModel(dlm);
-		//getList().(SystemColor.controlHighlight);
-	}
 
-	void displayOrdersForTableWithProductQuantities(Table selectedTable) {
-		
+	void displayOrdersForThisTable(Table selectedTable) {
 		LinkedList<Product> products = selectedTable.getOrders();
 		Iterator<Product> it = products.iterator();
+
+		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+		tableModel.setRowCount(0);
 		
-		LinkedList<Product> productsWithoutDuplicates = new LinkedList<>();
+		int quantity;
+		
 		while(it.hasNext()) {
 			Product productIterator = it.next();
-			if(doesProductExistInList(productIterator, productsWithoutDuplicates) == false) productsWithoutDuplicates.add(productIterator);
-		}
-		
-		DefaultListModel<String> dlm = new DefaultListModel<>();
-		it = productsWithoutDuplicates.iterator();
-		while(it.hasNext()) {
-			Product productIterator = it.next();
-			if(countOccurencesOfProductInList(productIterator, products) <= 1) {
-				dlm.addElement(productIterator.getCategory() + "  " + productIterator.getName() + "  " + productIterator.getPrice());
+			
+			if((quantity = countOccurencesOfProductInList(productIterator, products)) > 1) {
+				tableModel.addRow(new Object[] {productIterator.getCategory(),
+						productIterator.getName(),
+						productIterator.getPrice(),
+						"x " + countOccurencesOfProductInList(productIterator, products)});
 			} else {
-				dlm.addElement(productIterator.getCategory() + "  " + productIterator.getName() + "  " + productIterator.getPrice() + "  " + "x" + countOccurencesOfProductInList(productIterator, products));
+				tableModel.addRow(new Object[] {productIterator.getCategory(),
+						productIterator.getName(),
+						productIterator.getPrice(),
+						""});
 			}
 		}
-		getList().setModel(dlm);
+		table.setModel(tableModel);
 	}
 	int countOccurencesOfProductInList(Product product, LinkedList<Product> list) {
 		int count = 0;
@@ -295,9 +294,6 @@ public class App extends JFrame {
 			}
 		}
 		return count;
-	}
-	boolean doesProductExistInList(Product product, LinkedList<Product> orders) {
-		return orders.contains(product);
 	}
 	
 	void incrementProduct(Product proizvod) {
@@ -357,15 +353,25 @@ public class App extends JFrame {
 	private static void indebtedColor(JRadioButton selectedButton) {
 		selectedButton.setBackground(UIManager.getColor("RadioButton.shadow"));
 	}
-	
-	
+
 	// ----------------------------------------------------------------------	
-	
+	// ------------------- FOR TESTING ONLY --------------------------------
 //	public static void main(String[] args) {
 //		EventQueue.invokeLater(new Runnable() {
 //			public void run() {
 //				try {
-//					MainWindow frame = new MainWindow();
+//					User activeUser = new User(0, "admin", "admin", true, 100.0);
+//					Configuration configuration = new Configuration(Libary.loadAllProperties());
+//					Theme theme = new Theme();
+//					
+//					FlatLaf.setGlobalExtraDefaults( Collections.singletonMap( "@accentColor", theme.getAccentColor()) );
+//					FlatIntelliJLaf.setup();
+//					
+//					System.out.println("- ON START -\nthemeName: " + theme.getThemeName() + "\naccentColor: " + theme.getAccentColor() + "\n\n");
+//					
+//					theme.setActiveTheme(theme.getThemeName());
+//					
+//					App frame = new App(activeUser, null, null);
 //					frame.setVisible(true);					
 //				} catch (Exception e) {
 //					e.printStackTrace();
@@ -373,7 +379,6 @@ public class App extends JFrame {
 //			}
 //		});
 //	}
-
 	// ----------------------------------------------------------------------	
 	
 	public App(User activeUser, Configuration configuration, Theme theme) throws Exception {
@@ -429,7 +434,6 @@ public class App extends JFrame {
 	private JPanel getPanelW() {
 		if (panelW == null) {
 			panelW = new JPanel();
-			//panelW.(SystemColor.controlHighlight);
 			panelW.setLayout(new BorderLayout(0, 0));
 			panelW.add(getPanelWS(), BorderLayout.SOUTH);
 			panelW.add(getPanelWN(), BorderLayout.NORTH);
@@ -472,7 +476,7 @@ public class App extends JFrame {
 						TableButton selectedButton = (TableButton) e.getSource();
 						selectedTable=selectedButton.getLinkedTable();
 						
-						displayOrdersForTableWithProductQuantities(selectedTable);
+						displayOrdersForThisTable(selectedTable);
 						showTableBill(selectedTable);
 						selectColor(selectedButton);
 					}
@@ -558,7 +562,7 @@ public class App extends JFrame {
 						decrementProduct(selectedProduct);
 						activeUser.getOrders().remove(toRemove);
 						showTableBill(selectedTable);
-						displayOrdersForTableWithProductQuantities(selectedTable);
+						displayOrdersForThisTable(selectedTable);
 						list.setSelectedIndex(-1);
 						selectedProduct = null;
 					}
@@ -572,26 +576,7 @@ public class App extends JFrame {
 		}
 		return btnMinus;
 	}
-	private JList getList() {
-		if (list == null) {
-			list = new JList();
-			//list.(SystemColor.controlHighlight);
-			list.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			list.setToolTipText("Spisak svih proizvoda koji su naruƒçeni za dati sto.");
-			list.setFocusable(false);
-			
-			list.addListSelectionListener(new ListSelectionListener() {
-				public void valueChanged(ListSelectionEvent e) {
-					if(list.getSelectedIndex() != -1) {
-						String selektovanString = ((JList<String>)e.getSource()).getSelectedValue();
-						selectedProduct = stringToProduct2(selektovanString);
-						
-					}
-				}
-			});
-		}
-		return list;
-	}
+	
 	private JTabbedPane getTabbedPane() {
 		if (tabbedPane == null) {
 			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -639,10 +624,10 @@ public class App extends JFrame {
 								selectedProduct.setOrderTime(new GregorianCalendar());
 								selectedProduct.setUserId(activeUser.getId());
 								activeUser.addProductToUser(selectedProduct);
-								listOfOrderedProducts.add(selectedProduct);
+								listOfOrderedProducts.add(selectedProduct); // used to list all products for report
 								selectedTable.addProductToTable(selectedProduct);
 								incrementProduct(selectedProduct);
-								displayOrdersForTableWithProductQuantities(selectedTable);
+								displayOrdersForThisTable(selectedTable);
 								showTableBill(selectedTable);
 								
 								list.setSelectedIndex(-1);
@@ -725,7 +710,7 @@ public class App extends JFrame {
 						lblPazarUsera.setText(Double.toString(activeUser.getTurnover()) + " RSD");
 						
 						selectedTable.removeAllProductsFromTable();
-						displayOrdersForTableWithProductQuantities(selectedTable);
+						displayOrdersForThisTable(selectedTable);
 						selectedTable.setTableBill(0);
 						textField.setText("0");						
 					}
@@ -764,7 +749,7 @@ public class App extends JFrame {
 		if (scrollPaneWC == null) {
 			scrollPaneWC = new JScrollPane();
 			//scrollPaneWC.(SystemColor.controlHighlight);
-			scrollPaneWC.setViewportView(getList());
+			scrollPaneWC.setViewportView(getTable());
 		}
 		return scrollPaneWC;
 	}
@@ -1020,5 +1005,18 @@ public class App extends JFrame {
 			btnVratiPazar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		}
 		return btnVratiPazar;
+	}
+	private JTable getTable() {
+		if (table == null) {	
+			String[] colNames = {"KATEGORIJA", "NAZIV", "CENA", "KOLI»INA"};
+			DefaultTableModel model = new DefaultTableModel(colNames, 0);
+			table = new JTable(model) {
+				public boolean editCellAt(int row, int column, java.util.EventObject e) {
+		            return false;
+		         }
+			};
+			table.setFont(new Font("Segoe UI", Font.PLAIN, 18));
+		}
+		return table;
 	}
 }
