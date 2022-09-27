@@ -547,7 +547,7 @@ public class Settings extends JFrame {
 			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	
 			list.setModel(new AbstractListModel() {
-				String[] values = new String[] {"OPŠTA PODEšAVANJA" ,"PODEŠAVANJA PROIZVODA", "PODEšAVANJA KORISNIČKIH PROFILA"};
+				String[] values = new String[] {"OPŠTA PODEŠAVANJA" ,"PODEŠAVANJA PROIZVODA", "PODEšAVANJA KORISNIČKIH PROFILA"};
 				public int getSize() {
 					return values.length;
 				}

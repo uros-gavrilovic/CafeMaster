@@ -393,10 +393,10 @@ public class App extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent arg0) {
 				if(changesSaved == false) {
-					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saƒçuvane u izveötaj.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saËuvane u izveötaj.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if(response == JOptionPane.YES_OPTION) System.exit(0);
 				} else if(reportCreated == false) {
-					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saƒçuvane u izveötaj.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saËuvane u izveötaj.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if(response == JOptionPane.YES_OPTION) System.exit(0);
 				} else {
 					System.exit(0);
@@ -696,11 +696,11 @@ public class App extends JFrame {
 			btnNaplatiSto.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					if(selectedTable == null) {
-						JOptionPane.showMessageDialog(contentPane, "Molimo izaberite sto za koji ûelite da naplatite raƒçun", "Naplata raƒçuna", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Molimo izaberite sto za koji ûelite da naplatite raËun", "Naplata raËuna", JOptionPane.INFORMATION_MESSAGE);
 						return;
 					}
 					if(selectedTable.getTableBill() == 0.0) {
-						JOptionPane.showMessageDialog(contentPane, "Trenutni sto nema potraûivanja i nije moguÊe naplatiti raƒçun.", "Naplata raƒçuna", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(contentPane, "Trenutni sto nema potraûivanja i nije moguÊe naplatiti raËun.", "Naplata raËuna", JOptionPane.INFORMATION_MESSAGE);
 						return;
 					}
 					int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da naplatite potraûivanja za dati sto?", "Naplata dugovanja stola", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -731,7 +731,7 @@ public class App extends JFrame {
 	}
 	private JLabel getLnlSadrzajNarudzbine() {
 		if (lnlSadrzajNarudzbine == null) {
-			lnlSadrzajNarudzbine = new JLabel("SADR\u017DAJ NARUD\u017DBINE");
+			lnlSadrzajNarudzbine = new JLabel("SADRéDAJ NARUDéDBINE");
 			lnlSadrzajNarudzbine.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		}
 		return lnlSadrzajNarudzbine;
@@ -777,7 +777,7 @@ public class App extends JFrame {
 	private JMenuItem getMnItemCreateReport() {
 		if (mnItemCreateReport == null) {
 			mnItemCreateReport = new JMenuItem("Kreiraj izveötaj");
-			mnItemCreateReport.setToolTipText("Kreira dnevni izveötaj koji prikazuje finansijsku analizu i koliƒçinu svakog proizvoda koji je naruƒçen.");
+			mnItemCreateReport.setToolTipText("Kreira dnevni izveötaj koji prikazuje finansijsku analizu i koliËinu svakog proizvoda koji je naruËen.");
 			mnItemCreateReport.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					changesSaved = true;
@@ -805,9 +805,9 @@ public class App extends JFrame {
 					
 					if(report.exists() == true) {
 						if(changesSaved == false) {
-							JOptionPane.showMessageDialog(contentPane, "Izveötaj je napravljen, ali nove promene nisu saƒçuvane.", "Uvid o postojanju izveötaja", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPane, "Izveötaj je napravljen, ali nove promene nisu saËuvane.", "Uvid o postojanju izveötaja", JOptionPane.INFORMATION_MESSAGE);
 						} else {
-							JOptionPane.showMessageDialog(contentPane, "Izveötaj je napravljen i kompletno saƒçuvan.", "Uvid o postojanju izveötaja", JOptionPane.INFORMATION_MESSAGE);
+							JOptionPane.showMessageDialog(contentPane, "Izveötaj je napravljen i kompletno saËuvan.", "Uvid o postojanju izveötaja", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} else {
 						JOptionPane.showMessageDialog(contentPane, "Izveötaj nije kreiran.", "Uvid o postojanju izveötaja", JOptionPane.INFORMATION_MESSAGE);
@@ -839,7 +839,7 @@ public class App extends JFrame {
 			mnItemSettings.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {	
 					if(changesSaved == false) {
-						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saƒçuvane u izveötaju.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saËuvane u izveötaju.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(response == JOptionPane.YES_OPTION) {
 							goToSettings();
 							if(activeUser.isAdmin()==true) dispose();
@@ -866,7 +866,7 @@ public class App extends JFrame {
 			mnItemBack.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {		
 					if(changesSaved == false) {
-						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saƒçuvane.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						int response = JOptionPane.showConfirmDialog(contentPane, "Da li ste sigurni da ûelite da izaete? Sve unete izmene neÊe biti saËuvane.", "Potvrda izlaska", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 						if(response == JOptionPane.YES_OPTION) {
 							goToMainMenu();
 							dispose();
@@ -896,7 +896,7 @@ public class App extends JFrame {
 					System.out.println("evidencija napravljena");
 				}
 			});
-			mnItemCreateLogs.setToolTipText("Kreira evidenciju koja pruûa uvid o naruƒçenim proizvodima kroz vreme.");
+			mnItemCreateLogs.setToolTipText("Kreira evidenciju koja pruûa uvid o naruËenim proizvodima kroz vreme.");
 		}
 		return mnItemCreateLogs;
 	}
@@ -918,7 +918,7 @@ public class App extends JFrame {
 			panelNW = new JPanel();
 			panelNW.setPreferredSize(new Dimension(265, 10));
 			panelNW.setFont(new Font("Tahoma", Font.PLAIN, 17));
-			panelNW.setToolTipText("Ime korisnika na ƒçijem profilu se obavlja poslovna aktivnost.");
+			panelNW.setToolTipText("Ime korisnika na Ëijem profilu se obavlja poslovna aktivnost.");
 			//panelNW.(SystemColor.controlHighlight);
 			panelNW.setLayout(new GridLayout(2,2));
 			panelNW.add(getLblUser());
