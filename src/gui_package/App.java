@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -42,6 +43,7 @@ import backend_package.Product;
 import backend_package.ProductButton;
 import backend_package.Table;
 import backend_package.TableButton;
+import backend_package.TableOrdersModel;
 import backend_package.Theme;
 import lib.Libary;
 
@@ -262,27 +264,28 @@ public class App extends JFrame {
 		LinkedList<Product> products = selectedTable.getOrders();
 		Iterator<Product> it = products.iterator();
 
-		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-		tableModel.setRowCount(0);
+		// ovde
 		
-		int quantity;
+		TableOrdersModel tableModel = (TableOrdersModel) table.getModel();
 		
 		while(it.hasNext()) {
 			Product productIterator = it.next();
+			tableModel.addRow(productIterator);
 			
-			if((quantity = countOccurencesOfProductInList(productIterator, products)) > 1) {
-				tableModel.addRow(new Object[] {productIterator.getCategory(),
-						productIterator.getName(),
-						productIterator.getPrice(),
-						"x " + countOccurencesOfProductInList(productIterator, products)});
-			} else {
-				tableModel.addRow(new Object[] {productIterator.getCategory(),
-						productIterator.getName(),
-						productIterator.getPrice(),
-						""});
-			}
+//			if((quantity = countOccurencesOfProductInList(productIterator, products)) > 1) {
+//				tableModel.addRow(new Object[] {productIterator.getCategory(),
+//						productIterator.getName(),
+//						productIterator.getPrice(),
+//						"x " + countOccurencesOfProductInList(productIterator, products)});
+//			} else {
+//				tableModel.addRow(new Object[] {productIterator.getCategory(),
+//						productIterator.getName(),
+//						productIterator.getPrice(),
+//						""});
+//			}
 		}
-		table.setModel(tableModel);
+		
+		
 	}
 	int countOccurencesOfProductInList(Product product, LinkedList<Product> list) {
 		int count = 0;
@@ -1006,10 +1009,9 @@ public class App extends JFrame {
 		return btnVratiPazar;
 	}
 	private JTable getTable() {
-		if (table == null) {	
-			String[] colNames = {"KATEGORIJA", "NAZIV", "CENA", "KOLIÈINA"};
-			DefaultTableModel model = new DefaultTableModel(colNames, 0);
-			table = new JTable(model) {
+		if (table == null) {
+			TableOrdersModel tableModel = new TableOrdersModel(new LinkedList<Product>());
+			table = new JTable(tableModel) {
 				public boolean editCellAt(int row, int column, java.util.EventObject e) {
 		            return false;
 		         }

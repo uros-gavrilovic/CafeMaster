@@ -1,28 +1,44 @@
 package backend_package;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
-public class TableOrdersModel extends AbstractTableModel {
+public class TableOrdersModel extends AbstractTableModel{
+	String tableHeaders[] = {"KATEGORIJA", "NAZIV", "CENA", "KOLIÈINA"}; 
+    private LinkedList<Product> products;
+    private DefaultTableModel tableModel;
 
-    private List<Product> products;
-
-    public TableOrdersModel(List<Product> products) {
-        this.products = new ArrayList<Product>(products);
+    public TableOrdersModel(LinkedList<Product> products) {
+    	this.tableModel = new DefaultTableModel(0, tableHeaders.length);
+    	this.tableModel.setColumnIdentifiers(tableHeaders);
+        this.products = products;
     }
 
+    public void addRow(Product product) {
+    	products.add(product);
+    	tableModel.addRow(new Object[]{product.getCategory(), product.getName(), product.getPrice(), product.getQuantity()});
+    }
+    
+    @Override 
+    public int getColumnCount() { 
+        return tableHeaders.length; 
+    } 
+    @Override 
+    public String getColumnName(int index) { 
+        return tableHeaders[index]; 
+    }
     @Override
-    public int getRowCount() {
-        return products.size();
+    public void setValueAt(Object value, int row, int col) {
+        fireTableCellUpdated(row, col);
     }
-
-    @Override
-    public int getColumnCount() {
-        return 4;
-    }
-
+    
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
 
@@ -52,4 +68,8 @@ public class TableOrdersModel extends AbstractTableModel {
         return products.get(row);
     }
 
+	@Override
+	public int getRowCount() {
+		return products.size();
+	}
 }
