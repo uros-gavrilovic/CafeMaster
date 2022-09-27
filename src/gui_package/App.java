@@ -264,7 +264,7 @@ public class App extends JFrame {
 		LinkedList<Product> products = selectedTable.getOrders();
 		Iterator<Product> it = products.iterator();
 
-		// --- OVDE --- v1
+		// --- OVDE --- v2
 		
 		TableOrdersModel tableModel = (TableOrdersModel) table.getModel();
 		
