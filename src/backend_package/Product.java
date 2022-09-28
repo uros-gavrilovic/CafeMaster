@@ -8,18 +8,20 @@ public class Product {
 	private String name;
 	private double price;
 	private double expenses;
-	private int quantity;
+	private int totalQuantity;
 	private GregorianCalendar orderTime;
 	private int userId;
+	private int orderQuantity; // used to show quantity in JTable order
 		
 	public Product(String category, String name, double price, double expenses) {
 		this.category = category;
 		this.name = name;
 		this.price = price;
 		this.expenses = expenses;
-		this.quantity = 0;
+		this.totalQuantity = 0;
 		this.orderTime = null;
-		this.userId = Integer.MIN_VALUE;	
+		this.userId = Integer.MIN_VALUE;
+		orderQuantity = 1;
 	}
 	
 	public String toString() {
@@ -87,14 +89,14 @@ public class Product {
 	}
 
 	public int getQuantity() {
-		return quantity;
+		return totalQuantity;
 	}
 	public void setQuantity(int quantity) {
 		if(quantity < 0) {
 			System.err.println("GRESKA: Uneti kvantitet proizvoda nije validan! (Product/setQuantity())");
 			return;
 		}
-		this.quantity = quantity;
+		this.totalQuantity = quantity;
 	}
 
 	public GregorianCalendar getOrderTime() {
@@ -115,4 +117,10 @@ public class Product {
 		this.userId = userId;
 	}
 
+	public int getOrderQuantity() {
+		return orderQuantity;
+	}
+	public void setOrderQuantity(int orderQuantity) {
+		this.orderQuantity = orderQuantity;
+	}
 }

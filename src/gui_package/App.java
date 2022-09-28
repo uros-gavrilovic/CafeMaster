@@ -226,78 +226,34 @@ public class App extends JFrame {
 		}
 		
 	}
-	Product stringToProduct(String productName) {
-		int selectedCategoryIndex = getTabbedPane().getSelectedIndex();
-		String selectedCategory = getTabbedPane().getTitleAt(selectedCategoryIndex);
-		
-		
-		LinkedList<Product> products = Libary.loadAllProducts();
-		Iterator<Product> it = products.iterator();
-		
-		while(it.hasNext()) {
-			Product productIterator = it.next();
-			if(productIterator.getName().matches(productName) && productIterator.getCategory().matches(selectedCategory)) return productIterator;
-		}
-		
-		return null; // ne bi trebalo da se desi
-	}
-	Product stringToProduct2(String productName) {
-		// koristi se kada se klikne na listu
-		
-		String[] productParts = productName.split("  "); // KATEGORIJA--NAZIV--CENA(--xBROJPONAVLJANJA)
-		LinkedList<Product> products = Libary.loadAllProducts();
-		Iterator<Product> it = products.iterator();
-		
-		while(it.hasNext()) {
-			Product productIterator = it.next();
-			if(productIterator.getCategory().matches(productParts[0]) && productIterator.getName().matches(productParts[1]) && productIterator.getPrice() == Double.parseDouble(productParts[2])) return productIterator;
-		}
-		
-		return null;
-	}
 	
 	void showTableBill(Table table) {
 		getTextField().setText(Double.toString(table.getTableBill()));
 	}
 
-	void displayOrdersForThisTable(Table selectedTable) {
-		
+	void displayAllOrdersForThisTable(Table selectedTable) {
+		clearOrdersTable();
 		LinkedList<Product> products = selectedTable.getOrders();
 		Iterator<Product> it = products.iterator();
-
-		// --- OVDE --- v2
-		
-		TableOrdersModel tableModel = (TableOrdersModel) table.getModel();
 		
 		while(it.hasNext()) {
 			Product productIterator = it.next();
-			tableModel.addRow(productIterator);
-			
-//			if((quantity = countOccurencesOfProductInList(productIterator, products)) > 1) {
-//				tableModel.addRow(new Object[] {productIterator.getCategory(),
-//						productIterator.getName(),
-//						productIterator.getPrice(),
-//						"x " + countOccurencesOfProductInList(productIterator, products)});
-//			} else {
-//				tableModel.addRow(new Object[] {productIterator.getCategory(),
-//						productIterator.getName(),
-//						productIterator.getPrice(),
-//						""});
-//			}
+			displayNewOrder(selectedTable, productIterator);
 		}
-		
+	}
+	private void clearOrdersTable() {
+		TableOrdersModel tableModel = (TableOrdersModel) table.getModel();
+		tableModel.clearTable();
+		tableModel = new TableOrdersModel(selectedTable.getOrders());
 		
 	}
+	void displayNewOrder(Table selectedTable, Product newProduct) {
+		TableOrdersModel tableModel = (TableOrdersModel) table.getModel();
+		tableModel.addRow(newProduct);
+	}
+	
 	int countOccurencesOfProductInList(Product product, LinkedList<Product> list) {
-		int count = 0;
-		Iterator<Product> it = list.iterator();
-		while(it.hasNext()) {
-			Product productIterator = it.next();
-			if(Libary.compareProducts(productIterator, product)) {
-				count++;
-			}
-		}
-		return count;
+		return Collections.frequency(list, product);
 	}
 	
 	void incrementProduct(Product proizvod) {
@@ -480,7 +436,7 @@ public class App extends JFrame {
 						TableButton selectedButton = (TableButton) e.getSource();
 						selectedTable=selectedButton.getLinkedTable();
 						
-						displayOrdersForThisTable(selectedTable);
+						displayAllOrdersForThisTable(selectedTable);
 						showTableBill(selectedTable);
 						selectColor(selectedButton);
 					}
@@ -566,7 +522,7 @@ public class App extends JFrame {
 						decrementProduct(selectedProduct);
 						activeUser.getOrders().remove(toRemove);
 						showTableBill(selectedTable);
-						displayOrdersForThisTable(selectedTable);
+						displayAllOrdersForThisTable(selectedTable);
 						list.setSelectedIndex(-1);
 						selectedProduct = null;
 					}
@@ -631,7 +587,7 @@ public class App extends JFrame {
 								listOfOrderedProducts.add(selectedProduct); // used to list all products for report
 								selectedTable.addProductToTable(selectedProduct);
 								incrementProduct(selectedProduct);
-								displayOrdersForThisTable(selectedTable);
+								displayNewOrder(selectedTable, selectedProduct);
 								showTableBill(selectedTable);
 								
 								selectedProduct = null;
@@ -713,7 +669,7 @@ public class App extends JFrame {
 						lblPazarUsera.setText(Double.toString(activeUser.getTurnover()) + " RSD");
 						
 						selectedTable.removeAllProductsFromTable();
-						displayOrdersForThisTable(selectedTable);
+						displayAllOrdersForThisTable(selectedTable);
 						selectedTable.setTableBill(0);
 						textField.setText("0");						
 					}

@@ -109,7 +109,7 @@ public class Settings extends JFrame {
 	private JPanel panelN;
 	private JList list;
 	private JPanel panelC;
-	private JPanel panelS_display;
+	private JPanel panelS_general;
 	private JPanel panelS_products;
 	private JPanel panelS_users;
 	private PlaceholderTextField txtNewCategory;
@@ -526,17 +526,17 @@ public class Settings extends JFrame {
 				public void valueChanged(ListSelectionEvent e) {
 					switch(getList().getSelectedIndex()) {
 					case 0:
-						getPanelS_display().setVisible(true);
+						getPanelS_general().setVisible(true);
 						getPanelS_products().setVisible(false);
 						getPanelS_users().setVisible(false);
 						break;
 					case 1:
-						getPanelS_display().setVisible(false);
+						getPanelS_general().setVisible(false);
 						getPanelS_products().setVisible(true);
 						getPanelS_users().setVisible(false);
 						break;
 					case 2:
-						getPanelS_display().setVisible(false);
+						getPanelS_general().setVisible(false);
 						getPanelS_products().setVisible(false);
 						getPanelS_users().setVisible(true);
 						break;
@@ -563,20 +563,20 @@ public class Settings extends JFrame {
 		if (panelC == null) {
 			panelC = new JPanel();
 			panelC.setLayout(new CardLayout(0, 0));
-			panelC.add(getPanelS_display(), "name_482836985326400");
+			panelC.add(getPanelS_general(), "name_482836985326400");
 			panelC.add(getPanelS_products(), "name_482837012038600");
 			panelC.add(getPanelS_users(), "name_482837040455600");
 		}
 		return panelC;
 	}
-	private JPanel getPanelS_display() {
-		if (panelS_display == null) {
-			panelS_display = new JPanel();
-			panelS_display.setLayout(null);
+	private JPanel getPanelS_general() {
+		if (panelS_general == null) {
+			panelS_general = new JPanel();
+			panelS_general.setLayout(null);
 			
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setBounds(24, 254, 515, 243);
-			panelS_display.add(fileChooser);
+			panelS_general.add(fileChooser);
 			
 			JColorChooser colorChooser = new JColorChooser();
 			colorChooser.setPreviewPanel(new JPanel());
@@ -616,7 +616,7 @@ public class Settings extends JFrame {
 		    		
 		    	}
 		    });
-		    panelS_display.add(colorChooser);
+		    panelS_general.add(colorChooser);
 			
 			slider.setValue(loadNumberOfTables());
 			slider.addChangeListener(new ChangeListener() {
@@ -634,27 +634,27 @@ public class Settings extends JFrame {
 			slider.setMajorTickSpacing(1);
 			slider.setFont(new Font("Segoe UI", Font.PLAIN, 15));
 			slider.setBounds(193, 32, 281, 56);
-			panelS_display.add(slider);
+			panelS_general.add(slider);
 			
 			JLabel lblNumOfTables = new JLabel("BROJ STOLOVA");
 			lblNumOfTables.setFont(new Font("Segoe UI", Font.BOLD, 20));
 			lblNumOfTables.setBounds(24, 32, 180, 27);
-			panelS_display.add(lblNumOfTables);
+			panelS_general.add(lblNumOfTables);
 			
 			JSeparator separator = new JSeparator();
 			separator.setMinimumSize(new Dimension(50, 50));
 			separator.setBounds(10, 118, 956, 22);
-			panelS_display.add(separator);
+			panelS_general.add(separator);
 			
 			JLabel lblTheme = new JLabel("TEMA");
 			lblTheme.setFont(new Font("Segoe UI", Font.BOLD, 20));
 			lblTheme.setBounds(551, 148, 124, 27);
-			panelS_display.add(lblTheme);
+			panelS_general.add(lblTheme);
 			
 			JLabel lblDirectory = new JLabel("DIREKTORIJUM IZVEŠTAJA");
 			lblDirectory.setFont(new Font("Segoe UI", Font.BOLD, 20));
 			lblDirectory.setBounds(24, 210, 502, 27);
-			panelS_display.add(lblDirectory);
+			panelS_general.add(lblDirectory);
 			
 			btnTheme.setHorizontalAlignment(SwingConstants.LEFT);
 			btnTheme.setText(" ");
@@ -687,12 +687,12 @@ public class Settings extends JFrame {
 					
 				}
 			});
-			panelS_display.add(btnTheme);
+			panelS_general.add(btnTheme);
 			
 			JLabel lblColor = new JLabel("AKCENT BOJA");
 			lblColor.setFont(new Font("Segoe UI", Font.BOLD, 20));
 			lblColor.setBounds(551, 210, 180, 27);
-			panelS_display.add(lblColor);
+			panelS_general.add(lblColor);
 			
 //			Icon iconConfirm = rescaleImage(new File("src/lib/img/confirm.png"), 30, 30);
 			Icon iconConfirm = new ImageIcon("src/lib/img/confirm.png");
@@ -700,7 +700,7 @@ public class Settings extends JFrame {
 			btnConfirmDirectory.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 			btnConfirmDirectory.setIcon(iconConfirm);
 			btnConfirmDirectory.setBounds(24, 507, 502, 45);
-			panelS_display.add(btnConfirmDirectory);
+			panelS_general.add(btnConfirmDirectory);
 			
 			Icon iconDefault = new ImageIcon("src/lib/img/default.png");
 			JButton btnDefault = new JButton("VRATI NA PODRAZUMEVANO", iconDefault);
@@ -717,12 +717,12 @@ public class Settings extends JFrame {
 			});
 			btnDefault.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 			btnDefault.setBounds(551, 507, 389, 45);
-			panelS_display.add(btnDefault);
+			panelS_general.add(btnDefault);
 			
 			JLabel lblLanguage = new JLabel("JEZIK PROGRAMA");
 			lblLanguage.setFont(new Font("Segoe UI", Font.BOLD, 20));
 			lblLanguage.setBounds(24, 148, 180, 27);
-			panelS_display.add(lblLanguage);
+			panelS_general.add(lblLanguage);
 			
 			// TODO: Implement language packs.
 			Configuration tempObj = new Configuration(Libary.loadAllProperties()); // Temporary
@@ -730,7 +730,7 @@ public class Settings extends JFrame {
 			comboBoxLanguage.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 			comboBoxLanguage.addItem(tempObj.getLanguage());
 			comboBoxLanguage.setBounds(211, 146, 314, 33);
-			panelS_display.add(comboBoxLanguage);
+			panelS_general.add(comboBoxLanguage);
 			
 			Icon iconBack = new ImageIcon("src/lib/img/back.png");
 			JButton btnBack = new JButton("VRATI SE NAZAD", iconBack);
@@ -741,14 +741,14 @@ public class Settings extends JFrame {
 			});
 			btnBack.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 			btnBack.setBounds(29, 578, 916, 45);
-			panelS_display.add(btnBack);
+			panelS_general.add(btnBack);
 			
 			JSeparator separator_1 = new JSeparator();
 			separator_1.setMinimumSize(new Dimension(50, 50));
 			separator_1.setBounds(24, 562, 916, 22);
-			panelS_display.add(separator_1);
+			panelS_general.add(separator_1);
 		}
-		return panelS_display;
+		return panelS_general;
 	}
 
 	private JPanel getPanelS_products() {

@@ -1,6 +1,8 @@
 package backend_package;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,64 +11,105 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import lib.Libary;
+
 public class TableOrdersModel extends AbstractTableModel{
+	
 	String tableHeaders[] = {"KATEGORIJA", "NAZIV", "CENA", "KOLIÈINA"}; 
     private LinkedList<Product> products;
 
     public TableOrdersModel(LinkedList<Product> products) {
-        this.products = products;
-    }
-
-    public void addRow(Product product) {
-    	products.add(product);
-    	fireTableRowsInserted(getRowCount(), getColumnCount());
+        this.products = compressOrders(products);
     }
     
     @Override 
     public int getColumnCount() { 
         return tableHeaders.length; 
     } 
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+    	
+    	Object value = null;
+    	Product product = products.get(rowIndex);
+    	switch (columnIndex) {
+    	case 0:
+    		value = product.getCategory();
+    		break;
+    	case 1:
+    		value = product.getName();
+    		break;
+    	case 2:
+    		value = product.getPrice();
+    		break;
+    	case 3:
+    		//value = Collections.frequency(products, product);
+    		if(product.getOrderQuantity() <= 1) {
+    			value = "";
+    		} else {
+    			value = "x " + product.getOrderQuantity();
+    		}
+    		
+    		break;
+    	default:
+    		System.err.println("ERROR: Invalid column index.");
+    	}
+    	
+    	return value;
+    	
+    }
+	@Override
+	public int getRowCount() {
+		return products.size();
+	}
     @Override 
     public String getColumnName(int index) { 
         return tableHeaders[index]; 
     }
+    public Product getProductAt(int row) {
+        return products.get(row);
+    }
+	
     @Override
     public void setValueAt(Object value, int row, int col) {
         fireTableCellUpdated(row, col);
     }
     
-    
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-
-        Object value = null;
-        Product product = products.get(rowIndex);
-        switch (columnIndex) {
-            case 0:
-                value = product.getCategory();
-                break;
-            case 1:
-                value = product.getName();
-                break;
-            case 2:
-                value = product.getPrice();
-                break;
-            case 3:
-                value = product.getQuantity();
-                break;
-            default:
-            	System.err.println("ERROR: Invalid column index.");
-        }
-
-        return value;
-
+    public void addRow(Product product) {
+    	products.add(product);
+    	products = compressOrders(products);
+    	fireTableStructureChanged();
     }
-    public Product getProductAt(int row) {
-        return products.get(row);
+    public void removeRow(int row)
+    {
+        products.remove(row);
+        fireTableStructureChanged();
+        fireTableRowsDeleted(row, row);
+    }
+    public void clearTable() {
+    	int rows = getRowCount();
+    	for(int i=0; i<getRowCount(); i++) {
+    		removeRow(i);
+    	}
+    	System.out.println("TABLE DELETED, ROWS REMOVED: " + rows);
     }
 
-	@Override
-	public int getRowCount() {
-		return products.size();
-	}
+    public LinkedList<Product> compressOrders(LinkedList<Product> listToCompress) {
+    	// Compresses LinkedList to a LinkedList without any duplicates.
+    	// Duplicates are stored as an increment in Product.orderQuantity.
+    	
+    	LinkedList<Product> resultList = new LinkedList<Product>();
+    	Iterator<Product> it = listToCompress.iterator();
+		while(it.hasNext()) {
+			Product productIterator = it.next();
+			if(resultList.contains(productIterator)) {
+				int index = resultList.indexOf(productIterator);
+				resultList.get(index).setOrderQuantity(resultList.get(index).getOrderQuantity() + 1);
+			} else {
+				resultList.add(productIterator);
+			}
+		}
+		System.out.println("STARTED AS: " + listToCompress.toString());
+		System.out.println("COMPRESSED TO: " + resultList.toString());
+    	return resultList;
+    }
 }
