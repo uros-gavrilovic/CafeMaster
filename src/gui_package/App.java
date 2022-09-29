@@ -84,6 +84,8 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.UIManager;
 import javax.swing.JTable;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class App extends JFrame {
 
@@ -241,11 +243,9 @@ public class App extends JFrame {
 			displayNewOrder(selectedTable, productIterator);
 		}
 	}
-	private void clearOrdersTable() {
+	void clearOrdersTable() {
 		TableOrdersModel tableModel = (TableOrdersModel) table.getModel();
 		tableModel.clearTable();
-		tableModel = new TableOrdersModel(selectedTable.getOrders());
-		
 	}
 	void displayNewOrder(Table selectedTable, Product newProduct) {
 		TableOrdersModel tableModel = (TableOrdersModel) table.getModel();
@@ -434,8 +434,9 @@ public class App extends JFrame {
 				adder.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						TableButton selectedButton = (TableButton) e.getSource();
-						selectedTable=selectedButton.getLinkedTable();
+						selectedTable = selectedButton.getLinkedTable();
 						
+						clearOrdersTable();
 						displayAllOrdersForThisTable(selectedTable);
 						showTableBill(selectedTable);
 						selectColor(selectedButton);
@@ -973,6 +974,11 @@ public class App extends JFrame {
 		            return false;
 		         }
 			};
+			table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+		        public void valueChanged(ListSelectionEvent event) {
+		            System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+		        }
+		    });
 			table.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		}
 		return table;

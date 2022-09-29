@@ -42,7 +42,6 @@ public class TableOrdersModel extends AbstractTableModel{
     		value = product.getPrice();
     		break;
     	case 3:
-    		//value = Collections.frequency(products, product);
     		if(product.getOrderQuantity() <= 1) {
     			value = "";
     		} else {
@@ -59,7 +58,7 @@ public class TableOrdersModel extends AbstractTableModel{
     }
 	@Override
 	public int getRowCount() {
-		return products.size();
+		return compressOrders(products).size();
 	}
     @Override 
     public String getColumnName(int index) { 
@@ -75,8 +74,12 @@ public class TableOrdersModel extends AbstractTableModel{
     }
     
     public void addRow(Product product) {
-    	products.add(product);
-    	products = compressOrders(products);
+    	if(products.contains(product)) {
+    		product.setOrderQuantity(product.getOrderQuantity() + 1);
+    	} else {
+    		product.setOrderQuantity(1);
+    		products.add(product);
+    	}
     	fireTableStructureChanged();
     }
     public void removeRow(int row)
@@ -108,8 +111,6 @@ public class TableOrdersModel extends AbstractTableModel{
 				resultList.add(productIterator);
 			}
 		}
-		System.out.println("STARTED AS: " + listToCompress.toString());
-		System.out.println("COMPRESSED TO: " + resultList.toString());
     	return resultList;
     }
 }
