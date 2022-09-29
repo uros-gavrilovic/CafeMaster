@@ -60,7 +60,7 @@ public class Report {
 	public void createReport() {
 		try {
 			File izvestaj = new File(Libary.getReportsPath() + "\\" + Libary.createReportName());
-			if(izvestaj.createNewFile()) System.out.println("Izvestaj \"" + Libary.createReportName() + "\" je napravljen!");
+			if(izvestaj.createNewFile()) System.out.println("Report \"" + Libary.createReportName() + "\" is successfully created!");
 			
 			@SuppressWarnings("resource")
 			XSSFWorkbook workbook = new XSSFWorkbook();
@@ -71,8 +71,7 @@ public class Report {
 			  	headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 //			  	headerCellStyle.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 			
-			double totalTurnover = 0;
-			LinkedList<Product> products = Libary.loadAllProducts();  	
+			double totalTurnover = 0; 	
 			
 			int rows = products.size();
 			String[] header = {"KATEGORIJA", "NAZIV", "CENA", "KOLIČINA"};

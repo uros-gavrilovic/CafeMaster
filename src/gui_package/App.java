@@ -230,9 +230,6 @@ public class App extends JFrame {
 				return;
 			}
 		}
-		
-		
-		
 	}
 	void decrementProduct(Product proizvod) {
 		Iterator<Product> it = productInventory.iterator();
@@ -712,8 +709,7 @@ public class App extends JFrame {
 			mnItemCreateReport.setToolTipText("Kreira dnevni izveštaj koji prikazuje finansijsku analizu i kolièinu svakog proizvoda koji je naruèen.");
 			mnItemCreateReport.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					changesSaved = true;
-					reportCreated = true;
+					
 					File izvestajFajl = new File (Libary.getReportsPath() + "\\" + Libary.createReportName());
 					if(izvestajFajl.exists() == true) {
 						int response = JOptionPane.showConfirmDialog(contentPane, "Izveštaj za današnji dan je veæ kreiran. Da li želite da ga prepišete?","Kreiranje izveštaja", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -723,6 +719,8 @@ public class App extends JFrame {
 					}
 					Report izvestaj = new Report(productInventory);
 					izvestaj.createReport();
+					changesSaved = true;
+					reportCreated = true;
 				}
 			});
 		}
