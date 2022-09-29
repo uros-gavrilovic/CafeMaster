@@ -415,7 +415,7 @@ public class Settings extends JFrame {
 		
 		Product newProduct = new Product(category, name, price, expenses);
 		if(Libary.checkForProductDuplicates(newProduct)) {
-			setUpLabelError("Proizvod veš postoji.");
+			setUpLabelError("Proizvod već postoji.");
 			return false;
 		}
 		

@@ -28,6 +28,7 @@ public class TableOrdersModel extends AbstractTableModel{
     } 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+    	if(rowIndex == -1) return null;
     	
     	Object value = null;
     	Product product = products.get(rowIndex);
@@ -54,8 +55,11 @@ public class TableOrdersModel extends AbstractTableModel{
     	}
     	
     	return value;
-    	
     }
+	public Product getProductAt(int rowIndex) {
+	    return products.get(rowIndex);
+	}
+	    
 	@Override
 	public int getRowCount() {
 		return compressOrders(products).size();
@@ -63,9 +67,6 @@ public class TableOrdersModel extends AbstractTableModel{
     @Override 
     public String getColumnName(int index) { 
         return tableHeaders[index]; 
-    }
-    public Product getProductAt(int row) {
-        return products.get(row);
     }
 	
     @Override
@@ -93,7 +94,6 @@ public class TableOrdersModel extends AbstractTableModel{
     	for(int i=0; i<getRowCount(); i++) {
     		removeRow(i);
     	}
-    	System.out.println("TABLE DELETED, ROWS REMOVED: " + rows);
     }
 
     public LinkedList<Product> compressOrders(LinkedList<Product> listToCompress) {

@@ -40,7 +40,7 @@ public class Product {
 		}
 		Product other = (Product) obj;
 		return Objects.equals(category, other.category)
-				&& Double.doubleToLongBits(expenses) == Double.doubleToLongBits(other.expenses)
+			//	&& Double.doubleToLongBits(expenses) == Double.doubleToLongBits(other.expenses)
 				&& Objects.equals(name, other.name)
 				&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price);
 	}

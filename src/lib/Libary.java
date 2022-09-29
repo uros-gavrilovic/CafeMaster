@@ -473,9 +473,6 @@ public class Libary {
 		if(c >= 48 && c <= 57) return true;
 		return false;
 	}
-	public static boolean compareProducts(Product productIterator, Product product) {
-		return productIterator.equals(product);
-	}
 
 	public static Color lighter(Color color, float ratio) {
         return mergeColors(Color.WHITE, ratio, color, 1 - ratio);
@@ -495,4 +492,18 @@ public class Libary {
                 (fa * a.getBlue() + fb * b.getBlue()) / (fa + fb) / 255f);
     }
 	
+	public static Product findLastOccurenceOfProduct(Product productToSearch, LinkedList<Product> products) {
+		if(!products.contains(productToSearch)) {
+			System.err.println("ERROR: Can't find this product in given list.");
+			return null;
+		}
+		
+		Product result = null;
+		Iterator<Product> it = products.iterator();		
+		while(it.hasNext()) {	
+			Product productIterator = it.next();
+			if(productIterator.equals(productToSearch)) result = productIterator;
+		}
+		return result;
+	}
 }

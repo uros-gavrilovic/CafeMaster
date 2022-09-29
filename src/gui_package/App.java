@@ -129,6 +129,7 @@ public class App extends JFrame {
 	private JLabel lblPazar;
 	private JLabel lblPazarUsera;
 	private JButton btnVratiPazar;
+	private JTable table;
 	
 	private User activeUser;
 	private static Configuration configuration;
@@ -143,7 +144,6 @@ public class App extends JFrame {
 
 	private LinkedList<Product> productInventory = Libary.loadAllProducts();
 	private LinkedList<Product> listOfOrderedProducts = new LinkedList<>();
-	private JTable table;
 	
 	// ---------- CUSTOM METHODS ---------------------------------------------
 	
@@ -256,17 +256,19 @@ public class App extends JFrame {
 		return Collections.frequency(list, product);
 	}
 	
-	void incrementProduct(Product proizvod) {
+	void incrementProduct(Product product) {		
 		Iterator<Product> it = productInventory.iterator();
 		
 		while(it.hasNext()) {
 			Product productIterator = it.next();
-			if(productIterator.toString().matches(proizvod.toString())) {
-				int count = productIterator.getQuantity();
-				productIterator.setQuantity(count + 1);
+			if(productIterator.equals(product)) {
+				productIterator.setQuantity(productIterator.getQuantity() + 1);
 				return;
 			}
 		}
+		
+		
+		
 	}
 	void decrementProduct(Product proizvod) {
 		Iterator<Product> it = productInventory.iterator();
@@ -280,11 +282,11 @@ public class App extends JFrame {
 			}
 		}
 	}
-	int countProductQuantity(Product proizvod) {
+	int countProductQuantity(Product product) {
 		Iterator<Product> it = productInventory.iterator();
 		while(it.hasNext()) {
 			Product productIterator = it.next();
-			if(Libary.compareProducts(proizvod, productIterator) == true) {
+			if(product.equals(productIterator)) {
 				return productIterator.getQuantity();
 			}
 		}
@@ -516,15 +518,18 @@ public class App extends JFrame {
 					if(selectedProduct == null) {
 						JOptionPane.showMessageDialog(contentPane, "Nije moguæe oduzeti proizvod.\nMolimo izaberite proizvod koji želite oduzeti.", "Oduzimanje proizvoda", JOptionPane.INFORMATION_MESSAGE);
 					} else {
-						Product toRemove = selectedProduct;
+						Product toRemove = Libary.findLastOccurenceOfProduct(selectedProduct, selectedTable.getOrders());
+						
 						if(selectedTable.getOrders().remove(toRemove)) {
 							System.out.println("Product \"" + toRemove + "\" is removed from the table #" + (selectedTable.getId() + 1) + "!");
 						}
+						
 						decrementProduct(selectedProduct);
 						activeUser.getOrders().remove(toRemove);
 						showTableBill(selectedTable);
+						clearOrdersTable();
 						displayAllOrdersForThisTable(selectedTable);
-						list.setSelectedIndex(-1);
+						table.getSelectionModel().clearSelection();
 						selectedProduct = null;
 					}
 				}
@@ -590,6 +595,7 @@ public class App extends JFrame {
 								incrementProduct(selectedProduct);
 								displayNewOrder(selectedTable, selectedProduct);
 								showTableBill(selectedTable);
+								//ovde
 								
 								selectedProduct = null;
 							}
@@ -976,7 +982,11 @@ public class App extends JFrame {
 			};
 			table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 		        public void valueChanged(ListSelectionEvent event) {
-		            System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+		        	if(table.getSelectedRow() != -1) {
+		        		selectedProduct = tableModel.getProductAt(table.getSelectedRow());
+		        	} else {
+		        		selectedProduct = null;
+		        	}
 		        }
 		    });
 			table.setFont(new Font("Segoe UI", Font.PLAIN, 18));
