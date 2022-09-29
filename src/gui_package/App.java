@@ -447,8 +447,13 @@ public class App extends JFrame {
 				adder.addFocusListener(new FocusListener() {
 					public void focusLost(FocusEvent e) {
 						JRadioButton selectedButton = (JRadioButton) e.getSource();
+	
+						if(selectedButton.isSelected()) {
+							System.out.println("focus lost");
+						}
+						
 						unselectColor(selectedButton);
-
+						
 						if(selectedTable != null && selectedTable.getTableBill() > 0) { // De-selected table needs to pay
 							indebtedColor(selectedButton);
 						}
