@@ -1,41 +1,21 @@
 package gui_package;
 
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
-import java.awt.CheckboxGroup;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.EventQueue;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLaf;
-
 import backend_package.Report;
 import backend_package.User;
 import backend_package.Configuration;
@@ -46,14 +26,11 @@ import backend_package.TableButton;
 import backend_package.TableOrdersModel;
 import backend_package.Theme;
 import lib.Libary;
-
 import javax.swing.JTextField;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -62,8 +39,6 @@ import java.awt.Panel;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JTabbedPane;
@@ -71,9 +46,6 @@ import java.awt.FlowLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import javax.swing.JToolBar;
-import javax.swing.ListModel;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.border.LineBorder;
@@ -81,11 +53,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Component;
-import javax.swing.Box;
 import javax.swing.UIManager;
 import javax.swing.JTable;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 
 public class App extends JFrame {
 
@@ -97,13 +66,9 @@ public class App extends JFrame {
 	private JPanel panelWS;
 	private JButton btnPlus;
 	private JButton btnMinus;
-	private JList list;
-	private CheckboxGroup grp=new CheckboxGroup();
 	private JTabbedPane tabbedPane;
 	private JScrollPane scrollPane;
 	private JPanel panel;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
 	private JPanel panelCS;
 	private JLabel lblRaunStola;
 	private JTextField textField;
@@ -139,11 +104,10 @@ public class App extends JFrame {
 	private boolean changesSaved = true;
 	private Table selectedTable = null;
 	private Product selectedProduct = null;
-	private String selectedCategory;
 	private Table tables[] =  new Table[Libary.loadNumberOfTables()];
 
-	private LinkedList<Product> productInventory = Libary.loadAllProducts();
-	private LinkedList<Product> listOfOrderedProducts = new LinkedList<>();
+	private LinkedList<Product> productInventory = Libary.loadAllProducts(); // used for creating report of all products
+	private LinkedList<Product> listOfOrderedProducts = new LinkedList<>(); // used for creating logs
 	
 	// ---------- CUSTOM METHODS ---------------------------------------------
 	
@@ -448,12 +412,7 @@ public class App extends JFrame {
 					public void focusLost(FocusEvent e) {
 						JRadioButton selectedButton = (JRadioButton) e.getSource();
 	
-						if(selectedButton.isSelected()) {
-							System.out.println("focus lost");
-						}
-						
 						unselectColor(selectedButton);
-						
 						if(selectedTable != null && selectedTable.getTableBill() > 0) { // De-selected table needs to pay
 							indebtedColor(selectedButton);
 						}
@@ -592,15 +551,16 @@ public class App extends JFrame {
 							} else {
 								changesSaved = false;
 								
+								incrementProduct(selectedProduct);
+								
 								selectedProduct.setOrderTime(new GregorianCalendar());
 								selectedProduct.setUserId(activeUser.getId());
 								activeUser.addProductToUser(selectedProduct);
-								listOfOrderedProducts.add(selectedProduct); // used to list all products for report
+								listOfOrderedProducts.add(selectedProduct); // used to list all products for logs
+								
 								selectedTable.addProductToTable(selectedProduct);
-								incrementProduct(selectedProduct);
 								displayNewOrder(selectedTable, selectedProduct);
 								showTableBill(selectedTable);
-								//ovde
 								
 								selectedProduct = null;
 							}

@@ -103,7 +103,7 @@ public class Report {
 				}
 			}
 			
-			// --- ZAVRSNI RACUN ---
+			// --- CALCULATING TURNOVER ---
 			XSSFRow turnoverRow = sheet.createRow(rows + 2);
 			XSSFCell cell = turnoverRow.createCell(0);
 			cell.setCellValue("UKUPNI PAZAR: ");
