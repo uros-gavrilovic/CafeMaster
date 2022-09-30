@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -29,6 +30,7 @@ import lib.Libary;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -49,6 +51,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -351,12 +354,18 @@ public class App extends JFrame {
 			}
 		
 		reportCreated = doesReportExist();
-		// = daLiEvidencijaPostoji();
 	}
 
 	private JPanel getPanelW() {
 		if (panelW == null) {
 			panelW = new JPanel();
+			
+			Border titledBorder = BorderFactory.createTitledBorder("SADRŽAJ NARUDŽBINE");
+			panelW.setBorder(titledBorder);
+			((TitledBorder) titledBorder).setTitleJustification(TitledBorder.CENTER);
+			((javax.swing.border.TitledBorder) panelW.getBorder()).setTitleFont(new Font("Segoe UI", Font.BOLD, 14));
+			panelW.repaint();
+			
 			panelW.setLayout(new BorderLayout(0, 0));
 			panelW.add(getPanelWS(), BorderLayout.SOUTH);
 			panelW.add(getPanelWN(), BorderLayout.NORTH);
@@ -654,7 +663,7 @@ public class App extends JFrame {
 		if (panelWN == null) {
 			panelWN = new JPanel();
 			//panelWN.(SystemColor.controlHighlight);
-			panelWN.add(getLnlSadrzajNarudzbine());
+			//panelWN.add(getLnlSadrzajNarudzbine());
 		}
 		return panelWN;
 	}
@@ -703,6 +712,7 @@ public class App extends JFrame {
 		}
 		return mnItemReport;
 	}
+		
 	private JMenuItem getMnItemCreateReport() {
 		if (mnItemCreateReport == null) {
 			mnItemCreateReport = new JMenuItem("Kreiraj izveštaj");
@@ -713,12 +723,16 @@ public class App extends JFrame {
 					File izvestajFajl = new File (Libary.getReportsPath() + "\\" + Libary.createReportName());
 					if(izvestajFajl.exists() == true) {
 						int response = JOptionPane.showConfirmDialog(contentPane, "Izveštaj za današnji dan je veæ kreiran. Da li želite da ga prepišete?","Kreiranje izveštaja", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-						if(response == JOptionPane.NO_OPTION) {
+						if(response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) {
+							
+							
+							System.out.println("REPORT: " + Report.doesReportExist() + "\nLOGS: " + Report.doLogsExist());
 							return;
 						}
 					}
-					Report izvestaj = new Report(productInventory);
-					izvestaj.createReport();
+					
+					Report report = new Report(productInventory);
+					report.createReport();
 					changesSaved = true;
 					reportCreated = true;
 				}
@@ -821,9 +835,9 @@ public class App extends JFrame {
 			mnItemCreateLogs = new JMenuItem("Kreiraj evidenciju");
 			mnItemCreateLogs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Report evidencija = new Report(listOfOrderedProducts);
-					evidencija.createLogs();
-					System.out.println("evidencija napravljena");
+					System.out.println(listOfOrderedProducts);
+					Report report = new Report(listOfOrderedProducts);
+					report.createLogs();
 				}
 			});
 			mnItemCreateLogs.setToolTipText("Kreira evidenciju koja pruža uvid o naruèenim proizvodima kroz vreme.");

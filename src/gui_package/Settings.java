@@ -471,7 +471,7 @@ public class Settings extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				if(activeUser.isAdmin() == false) {
-					JOptionPane.showMessageDialog(contentPane, "User koji nema administratorske privilegije nije u mogušnosti da pristupi podešavanjima.", "Nedovoljne privilegije", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(contentPane, "Korisnik koji nema administratorske privilegije nije u mogućnosti da pristupi podešavanjima.", "Nedovoljne privilegije", JOptionPane.WARNING_MESSAGE);
 				} else {
 					try {
 						dispose();
@@ -547,7 +547,7 @@ public class Settings extends JFrame {
 			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	
 			list.setModel(new AbstractListModel() {
-				String[] values = new String[] {"OPŠTA PODEŠAVANJA" ,"PODEŠAVANJA PROIZVODA", "PODEšAVANJA KORISNIČKIH PROFILA"};
+				String[] values = new String[] {"OPŠTA PODEŠAVANJA" ,"PODEŠAVANJA PROIZVODA", "PODEŠAVANJA KORISNIČKIH PROFILA"};
 				public int getSize() {
 					return values.length;
 				}
@@ -600,7 +600,7 @@ public class Settings extends JFrame {
 		    		theme.setAccentColor(colorHex);
 		    		theme.setActiveTheme(theme.getThemeName());
 		    		
-		    		System.out.println("\n\n- DURING WORK -\nthemeName: " + theme.getThemeName() + "\naccentColor: " + theme.getAccentColor() + "\n\n");
+		    		System.out.println("\n\n- WHILE RUNNING -\nthemeName: " + theme.getThemeName() + "\naccentColor: " + theme.getAccentColor() + "\n\n");
 		    		
 		    		EventQueue.invokeLater(new Runnable() {
 		    			public void run() {
@@ -678,6 +678,7 @@ public class Settings extends JFrame {
 					Icon iconTheme;
 					if(theme.getThemeName().equalsIgnoreCase("lightTheme")) {
 						theme.setActiveTheme("darkTheme");
+						
 					} else {
 						theme.setActiveTheme("lightTheme");
 					}
@@ -724,7 +725,6 @@ public class Settings extends JFrame {
 			lblLanguage.setBounds(24, 148, 180, 27);
 			panelS_general.add(lblLanguage);
 			
-			// TODO: Implement language packs.
 			Configuration tempObj = new Configuration(Libary.loadAllProperties()); // Temporary
 			JComboBox comboBoxLanguage = new JComboBox();
 			comboBoxLanguage.setFont(new Font("Segoe UI", Font.PLAIN, 18));

@@ -26,36 +26,61 @@ public class Report {
 	public Report(LinkedList<Product> products) {
 		this.products = products;
 	}
-	
-	@SuppressWarnings("incomplete-switch")
+
 	void readCell(XSSFCell cell) {
 		switch(cell.getCellType()) {
-		case STRING: System.out.print(cell.getStringCellValue() + " ");
-		break;
-		case NUMERIC: System.out.print(cell.getNumericCellValue() + " ");
-		break;
+			case STRING: 
+				System.out.print(cell.getStringCellValue() + " ");
+				break;
+			case NUMERIC:
+				System.out.print(cell.getNumericCellValue() + " ");
+				break;
+			default: return;
 		}
 	}
-	void readReport() throws Exception {
-		FileInputStream fis = new FileInputStream(Libary.getReportsPath() + "\\" + Libary.createReportName());
-		XSSFWorkbook workbook = new XSSFWorkbook(Libary.getReportsPath() + "\\" + Libary.createReportName());
-		XSSFSheet sheet = workbook.getSheetAt(0);
-		
-		int rows = sheet.getLastRowNum();
-		int cols = sheet.getRow(1).getLastCellNum();
-		
-		for(int i=0; i<=rows; i++) { // mozda izmeni u <
-			XSSFRow row = sheet.getRow(i);
-			for(int j=0; j<cols; j++) {
-				XSSFCell cell = row.getCell(j);
-				readCell(cell);
-			}
-			System.out.println("");
-		}
-		fis.close();
-		workbook.close();
-	}
+	
 
+	public static boolean doLogsExist() {
+		// checks if logs are created to decide whetever to append to existing Excel file or to create a new one
+				File excelFile = new File(Libary.getReportsPath() + "\\" + Libary.createReportName());
+				if(!excelFile.exists()) return false;
+				
+				try {
+			        FileInputStream fip = new FileInputStream(excelFile);
+			        XSSFWorkbook workbook;
+					workbook = new XSSFWorkbook(fip);
+					
+					if(workbook.getSheetIndex("EVIDENCIJA") == -1) {
+						return false;
+					} else {
+						return true;
+					}
+				} catch (IOException e) {
+					Libary.errorIOException(excelFile.getName(), Libary.getMethodName());
+				}
+				return false;
+	}
+	public static boolean doesReportExist() {
+		// checks if report is created to decide whetever to append to existing Excel file or to create a new one
+		File excelFile = new File(Libary.getReportsPath() + "\\" + Libary.createReportName());
+		if(!excelFile.exists()) return false;
+		
+		try {
+	        FileInputStream fip = new FileInputStream(excelFile);
+	        XSSFWorkbook workbook;
+			workbook = new XSSFWorkbook(fip);
+			
+			if(workbook.getSheetIndex("IZVEŠTAJ") == -1) {
+				return false;
+			} else {
+				return true;
+			}
+		} catch (IOException e) {
+			Libary.errorIOException(excelFile.getName(), Libary.getMethodName());
+		}
+		return false;
+	}
+	
 	
 	public void createReport() {
 		try {
@@ -125,13 +150,13 @@ public class Report {
 			XSSFWorkbook workbook;
 			
 			if(reportFile.exists() == false) {
-				System.out.println("Evidencija u fajlu \"" + Libary.createReportName() + "\" se kreira...");
+				System.out.println("Creating reports file \"" + Libary.createReportName() + "\" for logs activity.");
 				workbook = new XSSFWorkbook();
 			} else {
-				System.out.println("Evidencija u fajlu \"" + Libary.createReportName() + "\" se dodaje na izvestaj...");
+				System.out.println("Adding logs to the existing reports file \"" + Libary.createReportName() + "\".");
 				InputStream is = new FileInputStream(reportFile);
 				workbook = new XSSFWorkbook(is);
-				is.close();// mozda ovo
+				is.close();
 			}	
 			XSSFSheet sheet = workbook.createSheet("EVIDENCIJA");
 			
@@ -141,7 +166,6 @@ public class Report {
 	//		  	headerCellStyle.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		
 			String[] header = {"NAZIV PROIZVODA", "VREME NARUDŽBINE", "ID KONOBARA"};
-			LinkedList<Product> products = Libary.loadAllProducts();
 		  	int rows = products.size();
 		  	int columns = header.length;
 		  	SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
@@ -155,12 +179,12 @@ public class Report {
 				cell.setCellValue(header[i]);
 				cell.setCellStyle(headerCellStyle);
 			}
+			
 			for(int i=1; i<=rows; i++) {
 				XSSFRow row = sheet.createRow(i);
 				Product productIterator = it.next();
 				for(int j=0; j<columns; j++) {
 					XSSFCell cell = row.createCell(j);
-					
 					switch(j) {
 					case 0:
 						cell.setCellValue(productIterator.toString());
@@ -180,6 +204,7 @@ public class Report {
 			workbook.write(fos);
 			fos.close();
 			
+			System.out.println("Logs \"" + Libary.getReportsPath() + "\" are succesfully created");
 			JOptionPane.showMessageDialog(null, "Evidencija je uspešno napravljena!", "Kreiranje evidencije", JOptionPane.INFORMATION_MESSAGE);
 		
 		} catch (IOException e) {
