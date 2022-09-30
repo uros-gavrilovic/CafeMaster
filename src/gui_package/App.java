@@ -720,15 +720,10 @@ public class App extends JFrame {
 			mnItemCreateReport.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					File izvestajFajl = new File (Libary.getReportsPath() + "\\" + Libary.createReportName());
-					if(izvestajFajl.exists() == true) {
+					File excelFile = new File (Libary.getReportsPath() + "\\" + Libary.createReportName());
+					if(excelFile.exists() && Report.doesReportExist(excelFile)) {
 						int response = JOptionPane.showConfirmDialog(contentPane, "Izveštaj za današnji dan je veæ kreiran. Da li želite da ga prepišete?","Kreiranje izveštaja", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-						if(response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) {
-							
-							
-							System.out.println("REPORT: " + Report.doesReportExist() + "\nLOGS: " + Report.doLogsExist());
-							return;
-						}
+						if(response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) return;
 					}
 					
 					Report report = new Report(productInventory);
@@ -835,9 +830,16 @@ public class App extends JFrame {
 			mnItemCreateLogs = new JMenuItem("Kreiraj evidenciju");
 			mnItemCreateLogs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					System.out.println(listOfOrderedProducts);
+					
+					File excelFile = new File (Libary.getReportsPath() + "\\" + Libary.createReportName());
+					if(excelFile.exists() && Report.doLogsExist(excelFile)) {
+						int response = JOptionPane.showConfirmDialog(contentPane, "Evidencija za današnji dan je veæ kreirana. Da li želite da je prepišete?","Kreiranje evidencije", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if(response == JOptionPane.NO_OPTION || response == JOptionPane.CLOSED_OPTION) return;						
+					}
+					
 					Report report = new Report(listOfOrderedProducts);
 					report.createLogs();
+
 				}
 			});
 			mnItemCreateLogs.setToolTipText("Kreira evidenciju koja pruža uvid o naruèenim proizvodima kroz vreme.");

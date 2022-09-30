@@ -1058,7 +1058,7 @@ public class Settings extends JFrame {
 			lblNewLabel.setBounds(109, 57, 338, 221);
 			panelS_users.add(lblNewLabel);
 			
-			Border thisBorder = BorderFactory.createTitledBorder("Easy");
+			Border thisBorder = BorderFactory.createTitledBorder("Test");
 			
 			panelS_users.add(getPanel());
 			getPanel().setBorder(thisBorder);
