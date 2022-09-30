@@ -88,7 +88,7 @@ public class Report {
 			InputStream is;
 			
 			if(excelFile.exists()) {
-				if(doesReportExist(excelFile)) {
+				if(doLogsExist(excelFile)) {
 					is = new FileInputStream(excelFile);
 					workbook = new XSSFWorkbook(is);
 					is.close();
@@ -180,7 +180,7 @@ public class Report {
 			InputStream is;
 			
 			if(excelFile.exists()) {
-				if(doLogsExist(excelFile)) {
+				if(doesReportExist(excelFile)) {
 					is = new FileInputStream(excelFile);
 					workbook = new XSSFWorkbook(is);
 					is.close();
@@ -207,7 +207,6 @@ public class Report {
 	private boolean writeLogsData(File excelFile, XSSFWorkbook workbook) throws IOException, FileNotFoundException {
 		if(doLogsExist(excelFile)) {
 			workbook.removeSheetAt(workbook.getSheetIndex("EVIDENCIJA"));
-			System.out.println("evidencija izbrisana");
 		}
 		
 		FileOutputStream fos = new FileOutputStream(excelFile);

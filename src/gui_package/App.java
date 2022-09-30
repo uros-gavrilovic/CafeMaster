@@ -471,6 +471,8 @@ public class App extends JFrame {
 						JOptionPane.showMessageDialog(contentPane, "Nije moguæe dodati proizvod.\nMolimo izaberite proizvod koji želite dodati.", "Dodavanje proizvoda", JOptionPane.INFORMATION_MESSAGE);
 					} else {
 						
+						// TODO
+						changesSaved = false;
 					}
 				}
 			});
@@ -496,6 +498,7 @@ public class App extends JFrame {
 						
 						decrementProduct(selectedProduct);
 						activeUser.getOrders().remove(toRemove);
+						changesSaved = false;
 						showTableBill(selectedTable);
 						clearOrdersTable();
 						displayAllOrdersForThisTable(selectedTable);
