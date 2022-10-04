@@ -116,8 +116,8 @@ public class Report {
 	private boolean writeReportData(File excelFile, XSSFWorkbook workbook) throws IOException, FileNotFoundException {
 		
 		if(doesReportExist(excelFile)) {
-			workbook.removeSheetAt(workbook.getSheetIndex("IZVEŠTAJ"));
-			System.out.println("izvestaj obrisan");
+			if(workbook.getSheetIndex("IZVEŠTAJ") != -1) workbook.removeSheetAt(workbook.getSheetIndex("IZVEŠTAJ"));
+			System.out.println("Overwritting report sheet in Excel file \"" + Libary.createReportName() + "\"...");
 		}
 		
 		FileOutputStream fos = new FileOutputStream(excelFile);
@@ -206,7 +206,8 @@ public class Report {
 	}
 	private boolean writeLogsData(File excelFile, XSSFWorkbook workbook) throws IOException, FileNotFoundException {
 		if(doLogsExist(excelFile)) {
-			workbook.removeSheetAt(workbook.getSheetIndex("EVIDENCIJA"));
+			if(workbook.getSheetIndex("EVIDENCIJA") != -1) workbook.removeSheetAt(workbook.getSheetIndex("EVIDENCIJA"));
+			System.out.println("Overwritting logs sheet in Excel file \"" + Libary.createReportName() + "\"...");
 		}
 		
 		FileOutputStream fos = new FileOutputStream(excelFile);

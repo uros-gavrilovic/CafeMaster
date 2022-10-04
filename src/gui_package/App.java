@@ -521,11 +521,11 @@ public class App extends JFrame {
 			tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 			tabbedPane.setFocusable(false);
 			tabbedPane.setPreferredSize(new Dimension(500, 490));
-			LinkedList<String> kategorije = Libary.loadAllCategories();
+			LinkedList<String> categories = Libary.loadAllCategories();
 			LinkedList<Product> productsOfCategory = new LinkedList<>();
-			Iterator<String> itK = kategorije.iterator();
+			Iterator<String> itK = categories.iterator();
 
-			int numberOfCategories = Libary.loadAllCategories().size();
+			int numberOfCategories = categories.size();
 			JScrollPane adderSP;
 			JPanel adderP;
 			ProductButton adderB;
@@ -538,7 +538,7 @@ public class App extends JFrame {
 				adderSP.setViewportView(adderP);
 				String currentCategory = itK.next();
 				tabbedPane.addTab(currentCategory, null, adderSP);
-				productsOfCategory = Libary.loadAllProductsOfCategory(currentCategory, Libary.loadAllCategories(), Libary.loadAllProducts());
+				productsOfCategory = Libary.loadAllProductsOfCategory(currentCategory, categories, Libary.loadAllProducts());
 				Iterator<Product> itP = productsOfCategory.iterator();
 				
 				
@@ -551,13 +551,12 @@ public class App extends JFrame {
 					adderP.add(adderB);
 			
 					adderB.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							ProductButton selectedButton = (ProductButton) e.getSource();
-							Product selectedProduct = selectedButton.getLinkedProduct();
-		
+						public void actionPerformed(ActionEvent e) { // on product click		
 							if(selectedTable == null) {
 								JOptionPane.showMessageDialog(contentPane, "Molimo odaberite sto za koji želite da dodate proizvod!","Odabir stola", JOptionPane.INFORMATION_MESSAGE);
 							} else {
+								ProductButton selectedButton = (ProductButton) e.getSource();
+								Product selectedProduct = selectedButton.getLinkedProduct();
 								changesSaved = false;
 								
 								incrementProduct(selectedProduct);
@@ -833,7 +832,6 @@ public class App extends JFrame {
 			mnItemCreateLogs = new JMenuItem("Kreiraj evidenciju");
 			mnItemCreateLogs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					
 					File excelFile = new File (Libary.getReportsPath() + "\\" + Libary.createReportName());
 					if(excelFile.exists() && Report.doLogsExist(excelFile)) {
 						int response = JOptionPane.showConfirmDialog(contentPane, "Evidencija za današnji dan je veæ kreirana. Da li želite da je prepišete?","Kreiranje evidencije", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -842,7 +840,6 @@ public class App extends JFrame {
 					
 					Report report = new Report(listOfOrderedProducts);
 					report.createLogs();
-
 				}
 			});
 			mnItemCreateLogs.setToolTipText("Kreira evidenciju koja pruža uvid o naruèenim proizvodima kroz vreme.");
@@ -892,7 +889,6 @@ public class App extends JFrame {
 			lblUser.setHorizontalAlignment(SwingConstants.LEFT);
 			lblUser.setFocusable(false);
 			lblUser.setFont(new Font("Segoe UI", Font.PLAIN, 17));
-			//lblUser.(SystemColor.controlHighlight);
 		}
 		return lblUser;
 	}
@@ -905,7 +901,6 @@ public class App extends JFrame {
 			lblUsername.setFocusable(false);
 			lblUsername.setHorizontalTextPosition(SwingConstants.CENTER);
 			lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
-			//lblUsername.(SystemColor.controlHighlight);
 			lblUsername.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		}
 		return lblUsername;
