@@ -66,8 +66,8 @@ public class MainMenu extends JFrame {
 	private JButton btnExit;
 	private JLabel label;
 
-//	private static User activeUser = null;
-	private static User activeUser = new User(0, "admin", "admin", true, 100.0);
+	private static User activeUser = null;
+//	private static User activeUser = new User(0, "admin", "admin", true, 100.0);
 	private static Configuration configuration;
 	private static Theme theme;
 	

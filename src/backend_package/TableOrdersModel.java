@@ -15,7 +15,7 @@ import lib.Libary;
 
 public class TableOrdersModel extends AbstractTableModel{
 	
-	String tableHeaders[] = {"KATEGORIJA", "NAZIV", "CENA", "KOLIÈINA"}; 
+	String tableHeaders[] = {"KATEGORIJA", "NAZIV", "CENA", "KOLIÄŒINA"}; 
     private LinkedList<Product> products;
 
     public TableOrdersModel(LinkedList<Product> products) {
