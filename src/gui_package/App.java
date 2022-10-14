@@ -331,10 +331,9 @@ public class App extends JFrame {
 		});
 		setTitle("CafeMaster");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 1350, 750); // ovde
+		setBounds(100, 100, 1350, 750);
 		setJMenuBar(getMenuBar_1());
 		contentPane = new JPanel();
-		//contentPane.(SystemColor.controlHighlight);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout());
 		setContentPane(contentPane);
@@ -348,9 +347,9 @@ public class App extends JFrame {
 		// ---
 		for(int i=0; i<tables.length; i++)
 			try {
-				tables[i] = new Table(); // inicijalizacija stolova, globalna promenljiva
+				tables[i] = new Table();
 			} catch (Exception e) {
-				System.err.println("GRESKA: Nije moguce inicijalizovati stolove! (" + Libary.getMethodName() + ")");
+				System.err.println("ERROR: Unable to initialize tables! (" + Libary.getMethodName() + ")");
 			}
 		
 		reportCreated = doesReportExist();
@@ -438,7 +437,6 @@ public class App extends JFrame {
 	private JPanel getPanelC() {
 		if (panelC == null) {
 			panelC = new JPanel();
-			//panelC.(SystemColor.controlHighlight);
 			panelC.setLayout(new BorderLayout(0, 0));
 			panelC.add(getTabbedPane(), BorderLayout.CENTER);
 			panelC.add(getPanelCS(), BorderLayout.SOUTH);
@@ -455,7 +453,6 @@ public class App extends JFrame {
 	private JPanel getPanelWS() {
 		if (panelWS == null) {
 			panelWS = new JPanel();
-			//panelWS.(SystemColor.controlHighlight);
 			panelWS.add(getBtnPlus());
 			panelWS.add(getBtnMinus());
 		}
@@ -599,7 +596,6 @@ public class App extends JFrame {
 	private JPanel getPanelCS() {
 		if (panelCS == null) {
 			panelCS = new JPanel();
-			//panelCS.(SystemColor.controlHighlight);
 			panelCS.setFocusable(false);
 			panelCS.setPreferredSize(new Dimension(10, 40));
 			panelCS.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -664,8 +660,6 @@ public class App extends JFrame {
 	private JPanel getPanelWN() {
 		if (panelWN == null) {
 			panelWN = new JPanel();
-			//panelWN.(SystemColor.controlHighlight);
-			//panelWN.add(getLnlSadrzajNarudzbine());
 		}
 		return panelWN;
 	}
@@ -679,7 +673,6 @@ public class App extends JFrame {
 	private JPanel getPanelES() {
 		if (panelES == null) {
 			panelES = new JPanel();
-			//panelES.(SystemColor.controlHighlight);
 			panelES.setPreferredSize(new Dimension(40, 40));
 		}
 		return panelES;
@@ -687,7 +680,6 @@ public class App extends JFrame {
 	private JScrollPane getScrollPane_1_1() {
 		if (scrollPaneWC == null) {
 			scrollPaneWC = new JScrollPane();
-			//scrollPaneWC.(SystemColor.controlHighlight);
 			scrollPaneWC.setViewportView(getTable());
 		}
 		return scrollPaneWC;
