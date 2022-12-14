@@ -1,6 +1,6 @@
 --------------------
 Early Access
-Please keep in mind that CafeMaster is still in it's development. I try to do this as a side project and in my free time. I'm still planning to add some more features and work on bug fixes before I can say that I finished working on it. Naturally, some parts are a stuff to change. Thanks.
+Please keep in mind that CafeMaster is still in it's development. I try to do this as a side project and in my free time. I'm still planning to add some more features and work on bug fixes before I can say that I finished working on it. Naturally, some parts are a subject to change. Thanks.
 --------------------
 
 What is CafeMaster?
