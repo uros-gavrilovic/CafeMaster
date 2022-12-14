@@ -15,11 +15,17 @@ Current functionalities:
 - Full customization that allows user's to personalise app to their liking
 - App supports multiple users which allows multiple staff members to operate application at the same time
 - Users can either be admins (which allows them to edit app settings, maniupulate products and available users)
-- Ability to create daily reports which show total expenses and profit along with bought quantity of each product
-- Ability to create logs which show user statistics in terms of who ordered what and at what time
+- Ability to create daily reports in Excel which show total expenses and profit along with bought quantity of each product
+- Ability to create logs in Excel which show user statistics in terms of who ordered what and at what time
 
 What I'm planning to add:
 - Inventory managment (being unable to add products if they are unavailable in the inventory as well as warnings if the stock is running low)
+- Venue mapping using Canvas (ability to map out your venue and set graphically select tables)
 - GUI overhaul
 - Possible ability to connect an Android device and directly manage tables from your phone
 
+Current technologies used:
+- Java
+- Apache POI
+- Java networking
+- Swing
